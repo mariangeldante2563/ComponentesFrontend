@@ -12,6 +12,8 @@ export default function Home() {
           <Link to="/register" className="rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700">Registrarse</Link>
         </nav>
       </header>
+      
+     // main y sus clases 
 
       <main className="mx-auto max-w-5xl px-6 pb-16">
         <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
