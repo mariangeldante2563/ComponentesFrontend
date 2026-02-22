@@ -66,3 +66,14 @@ export async function profile(req, res) {
   }
   res.json({ user })
 }
+
+// Ruta simulada de recuperación de contraseña.
+// En un entorno real se enviaría un correo con un token temporal.
+export async function forgotPassword(req, res) {
+  const { email } = req.body
+  const exists = await User.findOne({ email })
+  if (!exists) {
+    return res.status(404).json({ message: 'Usuario no encontrado' })
+  }
+  return res.json({ ok: true, message: 'Se envió un enlace de recuperación (simulado)' })
+}

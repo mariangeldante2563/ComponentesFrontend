@@ -1,21 +1,35 @@
-// Mock auth service to unblock UI; replace with real API calls using axios/fetch.
+import axios from 'axios'
 
-const fakeToken = 'mock-token-123'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
+const client = axios.create({
+  baseURL: `${API_URL}/api`,
+  timeout: 8000,
+})
+
+function mapUserResponse(data) {
+  return {
+    token: data.token,
+    user: data.user,
+  }
+}
+
+function toMessage(error) {
+  const apiMessage = error?.response?.data?.message
+  const validation = error?.response?.data?.errors?.[0]?.msg
+  return apiMessage || validation || error.message || 'Error inesperado'
+}
 
 const authService = {
   async login({ email, password }) {
     if (!email || !password) {
       throw new Error('Credenciales requeridas')
     }
-    const role = email.includes('admin') ? 'admin' : 'employee'
-    return {
-      token: fakeToken,
-      user: {
-        id: 1,
-        name: 'Usuario Demo',
-        email,
-        role,
-      },
+    try {
+      const { data } = await client.post('/auth/login', { email, password })
+      return mapUserResponse(data)
+    } catch (error) {
+      throw new Error(toMessage(error))
     }
   },
 
@@ -24,20 +38,22 @@ const authService = {
     if (!email || !name || !password) {
       throw new Error('Datos incompletos')
     }
-    return {
-      token: fakeToken,
-      user: {
-        id: Date.now(),
-        name,
-        email,
-        role,
-      },
+    try {
+      const { data } = await client.post('/auth/register', { email, name, password, role })
+      return mapUserResponse(data)
+    } catch (error) {
+      throw new Error(toMessage(error))
     }
   },
 
   async forgotPassword(email) {
     if (!email) throw new Error('Email requerido')
-    return { ok: true }
+    try {
+      const { data } = await client.post('/auth/forgot', { email })
+      return data
+    } catch (error) {
+      throw new Error(toMessage(error))
+    }
   },
 }
 

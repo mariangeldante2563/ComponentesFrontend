@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { body } from 'express-validator'
-import { login, profile, register } from '../controllers/authController.js'
+import { forgotPassword, login, profile, register } from '../controllers/authController.js'
 import { validateRequest } from '../middleware/validateRequest.js'
 import { requireAuth } from '../middleware/auth.js'
 
@@ -30,5 +30,12 @@ router.post(
 )
 
 router.get('/profile', requireAuth, profile)
+
+router.post(
+  '/forgot',
+  [emailField],
+  validateRequest,
+  forgotPassword,
+)
 
 export default router
