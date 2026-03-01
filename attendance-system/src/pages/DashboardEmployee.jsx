@@ -1,6 +1,5 @@
 
-
-//estado de la jornada , kpis y las tabllas 
+//estado de la jornada  
 
 export default function DashboardEmployee() {
   return (

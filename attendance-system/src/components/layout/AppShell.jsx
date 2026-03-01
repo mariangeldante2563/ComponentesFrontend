@@ -1,5 +1,5 @@
 // agregamos las importaciones para los enlaces 
-//renderizacion de rutas
+
 
 import { NavLink, Outlet } from 'react-router-dom'
 import { LogOut, LayoutDashboard, Shield, Home as HomeIcon } from 'lucide-react'

@@ -1,6 +1,6 @@
 
-// enlazar la pagina del login y la creacion de un titulo
 //campos de control 
+
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
