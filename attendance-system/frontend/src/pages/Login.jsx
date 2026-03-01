@@ -1,5 +1,3 @@
-
-// creamos el login conlas dependencias.
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -35,7 +33,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-width-sm max-w-md rounded-2xl bg-white p-8 shadow-card border border-gray-100">
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-card border border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Iniciar sesion</h1>
         <p className="text-sm text-gray-600 mb-6">Accede al panel de asistencia.</p>
 

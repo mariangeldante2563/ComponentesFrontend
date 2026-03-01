@@ -1,5 +1,3 @@
-// validacion de campos, manejo de errores y conexion para guardar.
-
 import axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'

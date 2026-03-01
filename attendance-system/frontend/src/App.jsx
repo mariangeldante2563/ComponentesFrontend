@@ -1,6 +1,3 @@
-
-// creacion del componente principal y de navegacion, creacion de rutas.
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import ProtectedRoute from './components/auth/ProtectedRoute'

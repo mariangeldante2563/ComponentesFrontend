@@ -1,6 +1,4 @@
-﻿//agregamos importaciones para manejar estado de carga , login etc.
-
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+﻿import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import authService from '../services/authService'
 import toast from 'react-hot-toast'
 

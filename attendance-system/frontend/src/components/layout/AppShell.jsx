@@ -1,11 +1,6 @@
-// agregamos las importaciones para los enlaces 
-
-
 import { NavLink, Outlet } from 'react-router-dom'
 import { LogOut, LayoutDashboard, Shield, Home as HomeIcon } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
-
-//definimos las clases para tailwind
 
 const navLinkClass = ({ isActive }) =>
   `flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors
@@ -14,7 +9,6 @@ const navLinkClass = ({ isActive }) =>
 export default function AppShell() {
   const { user, logout, isAdmin } = useAuth()
 
-  //construimos el layout
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <div className="grid grid-cols-[240px_1fr] min-h-screen">
