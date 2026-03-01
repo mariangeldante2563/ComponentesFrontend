@@ -1,4 +1,4 @@
-//construimos el dasboard del administrador
+//construimos el dasboard del administrador, no funcional sin el backend
 
 export default function DashboardAdmin() {
   return (

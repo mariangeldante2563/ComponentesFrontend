@@ -1,5 +1,5 @@
 
-//estado de la jornada  
+//construimos el dasboard del empleado, no funcional sin el backend
 
 export default function DashboardEmployee() {
   return (
