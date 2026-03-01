@@ -1,8 +1,5 @@
-// ============================================
+
 // Modelo de Asistencia - Attendance
-// ============================================
-// Define el esquema para registrar entradas,
-// salidas y estado de asistencia de empleados.
 
 const mongoose = require('mongoose');
 
@@ -18,7 +15,6 @@ const attendanceSchema = new mongoose.Schema(
             type: Date,
             required: [true, 'La fecha es obligatoria'],
             default: () => {
-                // Fecha actual sin hora (solo año-mes-día)
                 const now = new Date();
                 return new Date(now.getFullYear(), now.getMonth(), now.getDate());
             },
@@ -57,20 +53,14 @@ const attendanceSchema = new mongoose.Schema(
     }
 );
 
-// ============================================
 // Índice compuesto: un registro por usuario/día
-// ============================================
 
 attendanceSchema.index({ user: 1, date: 1 }, { unique: true });
 
-// ============================================
 // Método de instancia: calcular horas trabajadas
-// ============================================
 
 /**
- * Calcula las horas trabajadas entre checkIn
- * y checkOut y actualiza el campo hoursWorked.
- * @returns {number} Horas trabajadas redondeadas a 2 decimales
+ * @returns {number} 
  */
 attendanceSchema.methods.calculateHours = function () {
     if (this.checkIn && this.checkOut) {

@@ -1,11 +1,9 @@
 
 // Configuración de conexión a MongoDB
 
-
 const mongoose = require('mongoose');
 
 /**
- * Conecta a la base de datos MongoDB utilizando
  * @returns {Promise<void>}
  * @throws {Error} 
  */
@@ -18,7 +16,6 @@ async function connectDB() {
 
         console.log('[DATABASE] Conexión exitosa a MongoDB');
 
-        // Eventos de conexión para monitoreo
         mongoose.connection.on('error', (error) => {
             console.error('[DATABASE] Error en la conexión:', error.message);
         });
@@ -33,8 +30,6 @@ async function connectDB() {
 }
 
 /**
- * Desconecta de la base de datos MongoDB.
- * Útil para pruebas y cierre limpio del servidor.
  * @returns {Promise<void>}
  */
 async function disconnectDB() {

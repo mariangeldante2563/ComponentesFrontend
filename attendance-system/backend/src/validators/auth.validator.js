@@ -1,14 +1,9 @@
-// ============================================
+
 // Validaciones para rutas de autenticación
-// ============================================
-// Define reglas de validación usando
-// express-validator para cada endpoint.
 
 const { body } = require('express-validator');
 
-// ============================================
 // Validación de registro de usuario
-// ============================================
 
 const registerValidation = [
     body('name')
@@ -34,9 +29,7 @@ const registerValidation = [
         .withMessage('El rol debe ser employee o admin'),
 ];
 
-// ============================================
 // Validación de inicio de sesión
-// ============================================
 
 const loginValidation = [
     body('email')
@@ -49,9 +42,7 @@ const loginValidation = [
         .notEmpty().withMessage('La contraseña es obligatoria'),
 ];
 
-// ============================================
 // Validación de recuperación de contraseña
-// ============================================
 
 const forgotPasswordValidation = [
     body('email')
