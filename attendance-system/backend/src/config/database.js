@@ -1,16 +1,13 @@
-// ============================================
+
 // Configuración de conexión a MongoDB
-// ============================================
-// Utiliza Mongoose para conectar a la base de
-// datos. Incluye manejo de errores y eventos.
+
 
 const mongoose = require('mongoose');
 
 /**
  * Conecta a la base de datos MongoDB utilizando
- * la URI definida en las variables de entorno.
  * @returns {Promise<void>}
- * @throws {Error} Si la conexión falla
+ * @throws {Error} 
  */
 async function connectDB() {
     try {

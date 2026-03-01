@@ -7,22 +7,12 @@ const navLinkClass = ({ isActive }) =>
    ${isActive ? 'bg-primary-100 text-primary-700' : 'text-gray-700 hover:bg-gray-100'}`
 
 export default function AppShell() {
-  const { user, logout, isAdmin } = useAuth()
+  const { logout, isAdmin } = useAuth()
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <div className="grid grid-cols-[240px_1fr] min-h-screen">
         <aside className="border-r border-gray-200 bg-white p-4">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <p className="text-sm text-gray-500">SESION</p>
-              <p className="font-semibold text-gray-800">{user?.name || 'Usuario'}</p>
-            </div>
-            <span className="text-xs rounded-full bg-primary-100 text-primary-700 px-2 py-1 capitalize">
-              {user?.role || 'role'}
-            </span>
-          </div>
-
           <nav className="space-y-1">
             <NavLink to="/" className={navLinkClass}>
               <HomeIcon size={16} /> INICIO
