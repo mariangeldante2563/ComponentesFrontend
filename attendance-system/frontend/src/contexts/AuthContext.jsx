@@ -1,67 +1,52 @@
-﻿import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
+import AuthContext from './AuthContextDef'
 import authService from '../services/authService'
 import toast from 'react-hot-toast'
 
-const AuthContext = createContext(null)
-
-export const useAuth = () => {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
-}
-
-export const AuthProvider = ({ children }) => {
+// Proveedor de autenticación (único export de componente)
+export default function AuthProvider({ children }) {
   const [user, setUser]       = useState(null)
   const [loading, setLoading] = useState(true)
-  const [token, setToken]     = useState(() => localStorage.getItem('token'))
+  const [token, setToken]     = useState(null)
 
+  // Restaurar sesión desde localStorage al montar
   useEffect(() => {
-    const init = async () => {
+    try {
       const savedToken = localStorage.getItem('token')
       const savedUser  = localStorage.getItem('user')
       if (savedToken && savedUser) {
-        try {
-          setToken(savedToken)
-          setUser(JSON.parse(savedUser))
-        } catch {
-          localStorage.removeItem('token')
-          localStorage.removeItem('user')
-        }
+        setToken(savedToken)
+        setUser(JSON.parse(savedUser))
       }
+    } catch {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+    } finally {
       setLoading(false)
     }
-    init()
+  }, [])
+
+  // Función auxiliar para guardar sesión
+  const saveSession = useCallback((data) => {
+    setToken(data.token)
+    setUser(data.user)
+    localStorage.setItem('token', data.token)
+    localStorage.setItem('user', JSON.stringify(data.user))
   }, [])
 
   const login = useCallback(async (credentials) => {
-    setLoading(true)
-    try {
-      const data = await authService.login(credentials)
-      setToken(data.token)
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      toast.success(`Bienvenido, ${data.user.name}!`)
-      return data.user
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    const data = await authService.login(credentials)
+    saveSession(data)
+    toast.success(`Bienvenido, ${data.user.name}!`)
+    return data.user
+  }, [saveSession])
 
   const register = useCallback(async (userData) => {
-    setLoading(true)
-    try {
-      const data = await authService.register(userData)
-      setToken(data.token)
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      toast.success('Cuenta creada exitosamente!')
-      return data.user
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    const data = await authService.register(userData)
+    saveSession(data)
+    toast.success('Cuenta creada exitosamente!')
+    return data.user
+  }, [saveSession])
 
   const logout = useCallback(() => {
     setUser(null)
